@@ -1,0 +1,110 @@
+:root {
+    --dark: hsl(235, 21%, 11%);
+    --card-bg: hsl(235, 24%, 19%);
+    --text-color:#D8E9A8;
+    --text--hover-color:#eff7fa;
+    --text-input-color: #eff7fa;
+    --red: #ff3150;
+    --yellow: #ffc400;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--dark);
+    
+    padding: 0;
+    margin: 0;
+}
+
+@media(min-width:768px) {
+    .container {
+        width: 60%;
+    }
+}
+
+@media(min-width:1200px) {
+    .container {
+        width: 40%;
+    }
+}
+
+.container-fluid::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    background-image: url("../imgs/bg-dark.jpg");
+    background-size: cover;
+}
+
+.container .header {
+    height: 100px;
+    width: 100%;
+
+}
+
+.header .container h1 {
+    text-transform: uppercase;
+    letter-spacing: 20px;
+    font-weight: 700;
+    transform: translateY(25%);
+    color: white;
+}
+
+.header .container img {
+    height: 70px;
+}
+ .input {
+     margin-top: 50px;
+ }
+
+.input .container .input-card {
+    height: 70px;   
+    background-color: var(--card-bg);
+
+}
+
+.input .container input {
+    border: 0;
+    background-color: transparent;
+    color: var(--text-input-color);
+}
+
+.input .container svg {
+    color: var(--text-color);
+    font-size: 30px;
+}
+
+.input .container svg:hover{
+    
+    color: var(--text-input-color);
+    border-radius: 70%;
+    border-color: var(--text-color);
+}
+
+.todos{   
+    margin-top: 50px;
+}
+
+.todo{
+    width: 100%;
+    height: 50px;
+    background-color: var(--card-bg);
+}
+.todos .todo svg {
+    margin-left: 10px;
+    font-size: 30px;
+    color: var(--text-color);
+}
+.todos .todo .content {
+    margin-left: 10px;
+    font-size: 20px;    
+    color: var(--text-color);
+}
+
+.todos .todo .content:hover {
+   
+    color: var(--text--hover-color);
+}
