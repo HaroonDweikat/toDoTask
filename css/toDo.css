@@ -1,9 +1,9 @@
 :root {
     --dark: hsl(235, 21%, 11%);
     --card-bg: hsl(235, 24%, 19%);
-    --text-color: #D8E9A8;
+    --text-color: #d1d8e0;
     --text--hover-color: #eff7fa;
-    --text-input-color: #eff7fa;
+    --trash-color: #FC427B;
 
 }
 
@@ -124,4 +124,7 @@ body {
 .todos .todo .content:hover {
 
     color: var(--text--hover-color);
+}
+.todos .container .delete svg{
+    color: var(--trash-color);
 }
