@@ -93,10 +93,12 @@ function reBuildList() {
             if (toDoList[index].completed) {
                 //completed 
                 iconBox.firstChild.classList.toggle('fa-circle-check');
+                content.classList.toggle('text-decoration-line-through');
                 reBuildList();
             } else {
                 //unCompleted 
                 iconBox.firstChild.classList.toggle('fa-circle');
+                content.classList.toggle('text-decoration-line-through');
                 reBuildList();
             }
 
