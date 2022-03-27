@@ -76,9 +76,6 @@ window.addEventListener('load',
         reBuildList();
     });
 
-
-
-
 function reBuildList() {
     spanAll.innerHTML = +toDoList.length;
     spanComp.innerHTML = toDoList.filter(toD => toD.completed).length;
