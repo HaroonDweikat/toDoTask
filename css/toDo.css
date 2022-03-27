@@ -3,15 +3,24 @@
     --card-bg: hsl(235, 24%, 19%);
     --text-color: #d1d8e0;
     --text--hover-color: #eff7fa;
+    --text-input-color: #eff7fa;
     --trash-color: #FC427B;
 
 }
 
-body {
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     font-family: "Roboto", sans-serif;
-    background-color: var(--dark);
     padding: 0;
     margin: 0;
+}
+
+body {
+
+    background-color: var(--dark);
+
 }
 
 @media(min-width:768px) {
@@ -88,8 +97,17 @@ body {
     margin-top: 50px;
 }
 
-.todos .container li:first-child {
+.todos * {
+    margin-bottom: 0px;
+}
+
+.todos .unCompleted li:first-child {
     border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    -ms-border-radius: 10px 10px 0 0;
+    -o-border-radius: 10px 10px 0 0;
+
 }
 
 .todo {
@@ -98,11 +116,13 @@ body {
     background-color: var(--card-bg);
     border-bottom: 2px solid #636e72;
 }
-.todos .todo div{
+
+.todos .todo div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .todos .todo svg {
     margin-left: 10px;
     font-size: 22px;
@@ -125,6 +145,21 @@ body {
 
     color: var(--text--hover-color);
 }
-.todos .container .delete svg{
+
+.todos .container .delete svg {
     color: var(--trash-color);
+}
+
+.todos footer {
+    color: var(--text-color);
+}
+
+.todos footer div span {
+    margin-left: 10px;
+    color: var(--text-color);
+    text-align: center;
+}
+.todos footer div span:hover {  
+    cursor: default;  
+    color: var(--text--hover-color);    
 }

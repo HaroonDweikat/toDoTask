@@ -44,11 +44,23 @@
     </div>
 
     <div class="todos position-relative">
-        <ul class="container " id="unCompleted">
+        <ul class="container unCompleted" id="unCompleted">
         </ul>
-        <hr>
-        <ul class="container " id="completed">           
+        <ul class="container" id="completed">
         </ul>
+        <div class="container">
+            <footer class="todo d-flex justify-content-between align-items-center">
+                <div class="all ms-4">
+                    All Todo's: <span class="ms-2" id="span-all"></span>
+                </div>
+                <div class="completed">
+                    Completed: <span id="span-comp"></span>
+                </div>
+                <div class="unCompleted me-4">
+                    Uncompleted: <span id="span-unComp"></span>
+                </div>
+            </footer>
+        </div>
     </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>

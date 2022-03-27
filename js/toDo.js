@@ -31,26 +31,33 @@ const deleteBoxClasses = "ms-auto me-2 delete";
 const deleteIconClasses = "fa-solid fa-trash-can";
 const toDoCompletedUl = document.getElementById('completed');
 const toDoUnCompletedUl = document.getElementById('unCompleted');
-let toDosJson = localStorage.getItem('toDos');
-let toDoList = JSON.parse(toDosJson);
+const spanAll = document.getElementById('span-all');
+const spanComp = document.getElementById('span-comp');
+const spanUnComp = document.getElementById('span-unComp');
+let toDoList;
 
+if (toDoList == null) {
+    toDoList = [];
+}
 toDoList.sort(compare);
 
 let newTodoContent = document.getElementById('newTodoContent');
-console.log(toDoList);
 function addNewTodo() {
     if (newTodoContent.value == '') {
         console.log('Empty');
         return;
     }
-    
+
     toDoList.push({
         content: newTodoContent.value,
         completed: false
     });
 
     reBuildList();
-    newTodoContent.value ='';
+
+    localStorage.setItem('toDos', JSON.stringify(toDoList));
+    localStorage.getItem('toDos');
+    newTodoContent.value = '';
 }
 function compare(a, b) {
     if (a.completed) {
@@ -62,11 +69,20 @@ function compare(a, b) {
     return -1;
 }
 
-document.addEventListener('onLoad', reBuildList());
+window.addEventListener('load',
+    () => {
+        let toDosJson = localStorage.getItem('toDos');
+        toDoList = JSON.parse(toDosJson);
+        reBuildList();
+    });
+
 
 
 
 function reBuildList() {
+    spanAll.innerHTML = +toDoList.length;
+    spanComp.innerHTML = toDoList.filter(toD => toD.completed).length;
+    spanUnComp.innerHTML = toDoList.filter(toD => !toD.completed).length;
     toDoList.sort(compare);
     toDoCompletedUl.innerHTML = '';
     toDoUnCompletedUl.innerHTML = '';
@@ -82,18 +98,20 @@ function reBuildList() {
         todoElem.className = liClasses;
         icon.className = toDoList[index].completed ? checked : unChecked;
         content.className = contentClasses;
-        deleteIcon.className =  deleteIconClasses;
-        deleteBox.className =  deleteBoxClasses;
+        deleteIcon.className = deleteIconClasses;
+        deleteBox.className = deleteBoxClasses;
         //events
-        deleteBox.addEventListener("click", function(event){
-            console.log(toDoList);
-            toDoList.splice(index,1);
-            console.log(toDoList);
-            reBuildList();
+        deleteBox.addEventListener("click", function () {
+            let confirmDelete = confirm("Are you sure you want to delete this Todo? \n" + toDoList[index].content);
+            if (confirmDelete) {
+                toDoList.splice(index, 1);
+                localStorage.setItem('toDos', JSON.stringify(toDoList));
+                reBuildList();
+            }
         });
         iconBox.addEventListener("click", function (event) {
             toDoList[index].completed = !toDoList[index].completed;
-           
+            localStorage.setItem('toDos', JSON.stringify(toDoList));
 
             if (toDoList[index].completed) {
                 //completed 
@@ -106,9 +124,18 @@ function reBuildList() {
             }
 
         });
-
         // content 
         content.textContent = toDoList[index].content;
+        content.setAttribute('contenteditable', 'true');
+        content.onblur = event => {
+            let newContent = event.target.innerText;
+            if (newContent != toDoList[index].content) {
+                toDoList[index].content = newContent;
+                localStorage.setItem('toDos', JSON.stringify(toDoList));
+            }
+            event.stopPropagation();
+        };
+
         // add icon and content to li
         iconBox.appendChild(icon)
         deleteBox.appendChild(deleteIcon)
@@ -121,7 +148,7 @@ function reBuildList() {
         } else {
             toDoUnCompletedUl.appendChild(todoElem);
         }
-
     };
-    localStorage.setItem('toDos', JSON.stringify(toDoList));
 }
+
+
