@@ -1,26 +1,3 @@
-// const toDos = [
-//     {
-//         content: "Task1",
-//         completed: false
-
-//     },
-//     {
-//         content: "Task2",
-//         completed: false
-
-//     },
-//     {
-//         content: "Task3",
-//         completed: true
-
-//     },
-//     {
-//         content: "Task4",
-//         completed: false
-
-//     },
-// ];
-
 // localStorage.setItem('toDos', JSON.stringify(toDos));
 
 const checked = "fa-solid fa-circle-check";
