@@ -73,6 +73,9 @@ window.addEventListener('load',
     () => {
         let toDosJson = localStorage.getItem('toDos');
         toDoList = JSON.parse(toDosJson);
+        if (toDoList == null) {
+            toDoList = [];
+        }
         reBuildList();
     });
 
