@@ -1,4 +1,3 @@
-// localStorage.setItem('toDos', JSON.stringify(toDos));
 //styles
 const checked = "fa-solid fa-circle-check";
 const unChecked = "fa-solid fa-circle";
@@ -26,27 +25,16 @@ function addNewTodo() {
         completed: false
     };
     toDoList.push(newTodo);
-    buildList();
-    
+    buildToDoItem(newTodo);
     localStorage.setItem('toDos', JSON.stringify(toDoList));
     newTodoContent.value = '';
 }
 
-function compare(a, b) {
-    if (a.completed) {
-        return 1;
-    }
-    if (a.completed === b.completed) {
-        return 0;
-    }
-    return -1;
-}
 
 window.addEventListener('load',
     () => {
         let toDosJson = localStorage.getItem('toDos');
         toDoList = JSON.parse(toDosJson);
-
         buildList();
     });
 
@@ -56,75 +44,11 @@ function buildList() {
     toDoCompletedUl.innerHTML = '';
     toDoUnCompletedUl.innerHTML = '';
     for (let index = 0; index < toDoList.length; index++) {
-    //     //create Elements 
-    //     let todoElem = document.createElement('li');
-    //     let iconBox = document.createElement('div');
-    //     let icon = document.createElement('i');
-    //     let deleteIcon = document.createElement('i');
-    //     let content = document.createElement('div');
-    //     let deleteBox = document.createElement('div');
-    //     //classes
-    //     todoElem.className = liClasses;
-    //     icon.className = toDoList[index].completed ? checked : unChecked;
-    //     content.className = contentClasses;
-    //     deleteIcon.className = deleteIconClasses;
-    //     deleteBox.className = deleteBoxClasses;
-    //     //events
-    //     deleteBox.addEventListener("click", function () {
-    //         let confirmDelete = confirm("Are you sure you want to delete this Todo? \n" + toDoList[index].content);
-    //         if (confirmDelete) {
-    //             toDoList.splice(index, 1);
-    //             localStorage.setItem('toDos', JSON.stringify(toDoList));
-    //             todoElem.remove();
-    //             updateFooter();
-    //         }
-    //     });
-    //     iconBox.addEventListener("click", function () {
-    //         toDoList[index].completed = !toDoList[index].completed;
-    //         localStorage.setItem('toDos', JSON.stringify(toDoList));
-    //         if (toDoList[index].completed) {
-    //             //completed
-    //             toDoCompletedUl.prepend(todoElem);
-    //             iconBox.firstChild.classList.toggle('fa-circle-check');
-    //             content.classList.toggle('text-decoration-line-through');
-    //             updateFooter();
-    //         } else {
-    //             //unCompleted                 
-    //             iconBox.firstChild.classList.toggle('fa-circle');
-    //             content.classList.remove('text-decoration-line-through');
-    //             toDoUnCompletedUl.append(todoElem);
-    //             updateFooter();
-    //         }
-
-    //     });
-    //     // content 
-    //     content.textContent = toDoList[index].content;
-    //     content.setAttribute('contenteditable', 'true');
-    //     content.onblur = event => {
-    //         let newContent = event.target.innerText;
-    //         if (newContent != toDoList[index].content) {
-    //             toDoList[index].content = newContent;
-    //             localStorage.setItem('toDos', JSON.stringify(toDoList));
-    //         }
-    //         event.stopPropagation();
-    //     };
-    //     // add icon and content to li
-    //     iconBox.appendChild(icon)
-    //     deleteBox.appendChild(deleteIcon)
-    //     todoElem.appendChild(iconBox);
-    //     todoElem.appendChild(content);
-    //     todoElem.appendChild(deleteBox);
-    //     //add todo to html
-    //     if (toDoList[index].completed) {
-    //         toDoCompletedUl.appendChild(todoElem);
-    //     } else {
-    //         toDoUnCompletedUl.appendChild(todoElem);
-    //     }
-    buildToDoItem(toDoList[index]);
+        buildToDoItem(toDoList[index]);
     }
 }
 
-function buildToDoItem(todo){
+function buildToDoItem(todo) {
     //create Elements 
     let todoElem = document.createElement('li');
     let iconBox = document.createElement('div');
@@ -190,7 +114,7 @@ function buildToDoItem(todo){
     if (todo.completed) {
         toDoCompletedUl.appendChild(todoElem);
     } else {
-        toDoUnCompletedUl.appendChild(todoElem);
+        toDoUnCompletedUl.prepend(todoElem);
     }
 }
 
@@ -198,4 +122,14 @@ function updateFooter() {
     spanAll.innerHTML = +toDoList.length;
     spanComp.innerHTML = toDoList.filter(toD => toD.completed).length;
     spanUnComp.innerHTML = toDoList.filter(toD => !toD.completed).length;
+}
+
+function compare(a, b) {
+    if (a.completed) {
+        return 1;
+    }
+    if (a.completed === b.completed) {
+        return 0;
+    }
+    return -1;
 }
