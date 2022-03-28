@@ -15,27 +15,12 @@ const newTodoContent = document.getElementById('newTodoContent');
 //todo List
 let toDoList = [];
 
-function addNewTodo() {
-    if (newTodoContent.value == '') {
-        console.log('Empty');
-        return;
-    }
-    let newTodo = {
-        content: newTodoContent.value,
-        completed: false
-    };
-    toDoList.push(newTodo);
-    buildToDoItem(newTodo);
-    localStorage.setItem('toDos', JSON.stringify(toDoList));
-    newTodoContent.value = '';
-}
-
-
 window.addEventListener('load',
     () => {
         let toDosJson = localStorage.getItem('toDos');
         toDoList = JSON.parse(toDosJson);
         buildList();
+        updateFooter();
     });
 
 function buildList() {
@@ -73,7 +58,6 @@ function buildToDoItem(todo) {
             updateFooter();
         }
     });
-    // TODO: toggle completed
     iconBox.addEventListener("click", function () {
         todo.completed = !todo.completed;
         localStorage.setItem('toDos', JSON.stringify(toDoList));
@@ -97,7 +81,6 @@ function buildToDoItem(todo) {
     content.setAttribute('contenteditable', 'true');
     content.onblur = event => {
         let newContent = event.target.innerText;
-        //#TODO:change content
         if (newContent != todo.content) {
             todo.content = newContent;
             localStorage.setItem('toDos', JSON.stringify(toDoList));
@@ -116,6 +99,23 @@ function buildToDoItem(todo) {
     } else {
         toDoUnCompletedUl.prepend(todoElem);
     }
+}
+
+function addNewTodo() {
+    if (newTodoContent.value == '') {
+        console.log('Empty');
+        return;
+    }
+    let newTodo = {
+        content: newTodoContent.value,
+        completed: false
+    };
+    toDoList.push(newTodo);
+    buildToDoItem(newTodo);
+    localStorage.setItem('toDos', JSON.stringify(toDoList));
+    newTodoContent.value = '';
+    updateFooter();
+
 }
 
 function updateFooter() {
